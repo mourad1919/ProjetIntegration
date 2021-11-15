@@ -31,21 +31,21 @@ public class IControllerTimesheetImpl {
 		itimesheetservice.affecterMissionADepartement(missionId, depId);
 
 	}
+
 	public void ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
 		itimesheetservice.ajouterTimesheet(missionId, employeId, dateDebut, dateFin);
 
 	}
 
-	
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
 		itimesheetservice.validerTimesheet(missionId, employeId, dateDebut, dateFin, validateurId);
 
 	}
+
 	public List<Mission> findAllMissionByEmployeJPQL(int employeId) {
 
 		return itimesheetservice.findAllMissionByEmployeJPQL(employeId);
 	}
-
 
 	public List<Employe> getAllEmployeByMission(int missionId) {
 

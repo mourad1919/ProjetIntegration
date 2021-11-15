@@ -28,6 +28,8 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	private static final Logger LOG = LogManager.getLogger(EmployeServiceImpl.class);
 
+	private static final boolean Employe = false;
+
 	@Autowired
 	EmployeRepository employeRepository;
 	@Autowired
@@ -46,11 +48,19 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	public void mettreAjourEmailByEmployeId(String email, int employeId) {
 
-		LOG.info(MessageFormat.format("Employe Id,{0}",employeId));
+		LOG.info(MessageFormat.format("Employe Id {0}", employeId));
+		Optional<Employe> listEmploye = employeRepository.findById(employeId);
+		if (listEmploye.isPresent()) {
 
-		Employe employe = employeRepository.findById(employeId).get();
-		employe.setEmail(email);
-		employeRepository.save(employe);
+			listEmploye.get().setEmail(email);
+			employeRepository.save(listEmploye.get());
+
+		}
+
+		else {
+			LOG.info(MessageFormat.format("Employe Id,{0}" + "Non Disoinble ", employeId));
+
+		}
 
 	}
 
@@ -111,8 +121,6 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 	}
 
-	// Tablesapce (espace disque)
-
 	public int ajouterContrat(Contrat contrat) {
 		LOG.info(MessageFormat.format("Contrat{0}", contrat));
 
@@ -165,9 +173,6 @@ public class EmployeServiceImpl implements IEmployeService {
 		if (empl.isPresent()) {
 			employe = empl.get();
 
-			// Desaffecter l'employe de tous les departements
-			// c'est le bout master qui permet de mettre a jour
-			// la table d'association
 			for (Departement dep : employe.getDepartements()) {
 				dep.getEmployes().remove(employe);
 			}
@@ -234,7 +239,6 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	@Override
 	public int ajouterEmploye(Employe employe) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
